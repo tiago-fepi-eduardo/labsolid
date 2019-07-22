@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  solid.presentation:
+    image: ${DOCKER_REGISTRY}solidpresentation
+    build:
+      context: .
+      dockerfile: Solid.Presentation\Dockerfile
