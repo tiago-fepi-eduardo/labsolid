@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Solid.Domain.Entity;
+using Solid.Domain.Interfaces;
 using Solid.Infra.Data;
 
 namespace Solid.Presentation.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class LibraryController : Controller
     {
-        private readonly LibraryContext _libraryContext;
+        private readonly IService<BaseEntity> _service;
+        private readonly IRepository<BaseEntity> _repository;
 
-        public ValuesController(LibraryContext libraryContext)
+        public LibraryController(IService<BaseEntity> Service, IRepository<BaseEntity> Repository)
         {
-            _libraryContext = libraryContext;
+            _service = Service;
+            _repository = Repository;
         }
 
         /// <summary>
@@ -23,9 +27,11 @@ namespace Solid.Presentation.Controllers
         /// <returns></returns>
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<BaseEntity> Get()
         {
-            return new string[] { "My", "get", "list" };
+            return _service.Get();
+
+            //return new string[] { "My", "get", "list" };
         }
 
         /// <summary>
@@ -35,9 +41,11 @@ namespace Solid.Presentation.Controllers
         /// <returns></returns>
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public BaseEntity Get(int id)
         {
-            return "My unique get";
+            return _service.Get(id);
+
+            //return "My unique get";
         }
 
         /// <summary>
@@ -46,8 +54,15 @@ namespace Solid.Presentation.Controllers
         /// <param name="value"></param>
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]string value)
         {
+            BookEntity obj = new BookEntity();
+            obj.Id = 1;
+            obj.NmBook = "La Casa de Papel";
+            obj.VrBook = 15;
+            obj.IdCategory = new CategoryEntity() { Id = 1, NmCategory = "Fiction" };
+            
+            return _service.Post(obj);
         }
 
         /// <summary>

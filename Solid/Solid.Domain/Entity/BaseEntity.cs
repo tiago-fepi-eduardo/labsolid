@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Solid.Domain.Entity
 {
-    public class CategoryEntity : BaseEntity
+    public class BaseEntity
     {
-        public string NmCategory { get; set; }
+        public virtual int Id { get; set; }
     }
 }

@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Solid.Domain.Entity
 {
-    public class BookEntity
+    public class BookEntity : BaseEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IdBook { get; set; }
         public string NmBook { get; set; }
         public decimal VrBook { get; set; }
         public CategoryEntity IdCategory { get; set; }

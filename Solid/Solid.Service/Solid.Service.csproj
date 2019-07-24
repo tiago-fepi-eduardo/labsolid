@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Solid.Domain\Solid.Domain.csproj" />
     <ProjectReference Include="..\Solid.Infra.CrossCutting\Solid.Infra.CrossCutting.csproj" />
     <ProjectReference Include="..\Solid.Infra.Data\Solid.Infra.Data.csproj" />

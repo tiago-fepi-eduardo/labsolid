@@ -9,8 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Solid.Domain.Interfaces;
 using Solid.Infra.Data;
+using Solid.Service.Services;
+using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Swagger;
+using Solid.Infra.Data.Repository;
 
 namespace Solid.Presentation
 {
@@ -36,12 +40,14 @@ namespace Solid.Presentation
                 });
             });
 
-            // Add SQLite
             services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("LibraryDatabase")
                     )
             );
+
+            services.AddSingleton(typeof(IService<>), typeof(BaseService<>));
+            services.AddSingleton(typeof(IRepository<>), typeof(BaseRepository <>));
 
             services.AddMvc();
         }
