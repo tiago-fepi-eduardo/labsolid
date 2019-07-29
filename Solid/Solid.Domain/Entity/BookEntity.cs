@@ -9,6 +9,7 @@ namespace Solid.Domain.Entity
     {
         public string NmBook { get; set; }
         public decimal VrBook { get; set; }
-        public CategoryEntity IdCategory { get; set; }
+        public CategoryEntity Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

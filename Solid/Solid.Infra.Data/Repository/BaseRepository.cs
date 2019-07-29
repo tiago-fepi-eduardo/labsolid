@@ -9,8 +9,13 @@ namespace Solid.Infra.Data.Repository
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private LibraryContext _context; // O que fazer com este context???
+        private readonly LibraryContext _context;
 
+        public BaseRepository(LibraryContext context)
+        {
+            _context = context;
+        }
+        
         public bool Insert(T obj)
         {
             try

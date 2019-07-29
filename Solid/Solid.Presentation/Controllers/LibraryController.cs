@@ -15,10 +15,9 @@ namespace Solid.Presentation.Controllers
         private readonly IService<BaseEntity> _service;
         private readonly IRepository<BaseEntity> _repository;
 
-        public LibraryController(IService<BaseEntity> Service, IRepository<BaseEntity> Repository)
+        public LibraryController(IService<BaseEntity> Service)
         {
             _service = Service;
-            _repository = Repository;
         }
 
         /// <summary>
@@ -57,12 +56,11 @@ namespace Solid.Presentation.Controllers
         public bool Post([FromBody]string value)
         {
             BookEntity obj = new BookEntity();
-            obj.Id = 1;
+            obj.ID = 1;
             obj.NmBook = "La Casa de Papel";
             obj.VrBook = 15;
-            obj.IdCategory = new CategoryEntity() { Id = 1, NmCategory = "Fiction" };
             
-            return _service.Post(obj);
+            return false; //_service.Post(obj);
         }
 
         /// <summary>

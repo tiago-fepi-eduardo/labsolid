@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Solid.Domain.Entity
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        public virtual int Id { get; set; }
+        public virtual int ID { get; set; }
     }
 }

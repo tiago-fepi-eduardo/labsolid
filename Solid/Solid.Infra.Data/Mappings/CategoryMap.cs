@@ -13,11 +13,14 @@ namespace Solid.Infra.Data.Mappings
         {
             builder.ToTable("Category");
 
-            builder.HasKey(c => c.Id);
+            builder.HasKey(c => c.ID);
 
             builder.Property(c => c.NmCategory)
-                .IsRequired()
-                .HasColumnName("Category");
+                .IsRequired();
+
+            builder.HasMany(c => c.LstBook)
+                .WithOne(c => c.Category)
+                .HasForeignKey(c => c.CategoryId);
         }
     }
 }

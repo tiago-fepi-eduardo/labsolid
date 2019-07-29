@@ -1,5 +1,4 @@
-﻿using Microsoft. EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
 using Solid.Domain.Entity;
 using Solid.Infra.Data.Mappings;
 
@@ -7,20 +6,22 @@ namespace Solid.Infra.Data
 {
     public class LibraryContext : DbContext
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        public LibraryContext(DbContextOptions options) : base(options)
         {
             //Nothing
         }
 
+        public DbSet<CategoryEntity> Categories { get; set; }
+        public DbSet<BookEntity> Books { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<CategoryEntity>(new CategoryMap().Configure);
             modelBuilder.Entity<BookEntity>(new BookMap().Configure);
-        }
+            base.OnModelCreating(modelBuilder);
 
-        public DbSet<CategoryEntity> Category { get; set; }
-        public DbSet<BookEntity> Book { get; set; }
+
+        }
     }
 }

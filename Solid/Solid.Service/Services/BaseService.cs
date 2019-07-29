@@ -10,7 +10,12 @@ namespace Solid.Service.Services
 {
     public class BaseService<T> : IService<T> where T : BaseEntity
     {
-        private BaseRepository<T> repository = new BaseRepository<T>();
+        private readonly IRepository<T> _repository;
+
+        public BaseService(IRepository<T> repository)
+        {
+            _repository = repository;
+        }
 
         public bool Post<V>(T obj) where V : AbstractValidator<T>
         {
@@ -18,7 +23,7 @@ namespace Solid.Service.Services
             {
                 Validate(obj, Activator.CreateInstance<V>());
 
-                repository.Insert(obj);
+                _repository.Insert(obj);
 
                 return true;
             }
@@ -34,7 +39,7 @@ namespace Solid.Service.Services
             {
                 Validate(obj, Activator.CreateInstance<V>());
 
-                repository.Update(obj);
+                _repository.Update(obj);
 
                 return true;
             }
@@ -44,14 +49,14 @@ namespace Solid.Service.Services
             }
         }
 
-        public IList<T> Get() => repository.SelectAll();
+        public IList<T> Get() => _repository.SelectAll();
 
         public T Get(int id)
         {
             if (id == 0)
                 throw new ArgumentException("The id can't be zero.");
 
-            return repository.Select(id);
+            return _repository.Select(id);
         }
 
         public bool Delete(int id)
@@ -61,7 +66,7 @@ namespace Solid.Service.Services
 
             try
             {
-                repository.Remove(id);
+                _repository.Remove(id);
                 return true;
             } catch (Exception ex)
             {

@@ -21,7 +21,7 @@ namespace Solid.Service.Validators
                 .NotEmpty().WithMessage("Is necessary to inform the Book.")
                 .NotNull().WithMessage("Is necessary to inform the Book.");
 
-            RuleFor(c => c.IdCategory)
+            RuleFor(c => c.CategoryId)
                 .NotEmpty().WithMessage("Is necessáry to inform a category.")
                 .NotNull().WithMessage("Is necessáry to inform a category.");
 

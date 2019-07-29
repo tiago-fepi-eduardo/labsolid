@@ -41,13 +41,14 @@ namespace Solid.Presentation
             });
 
             services.AddDbContext<LibraryContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration.GetConnectionString("LibraryDatabase")
                     )
             );
 
-            services.AddSingleton(typeof(IService<>), typeof(BaseService<>));
-            services.AddSingleton(typeof(IRepository<>), typeof(BaseRepository <>));
+            services.AddScoped(typeof(LibraryContext));
+            services.AddScoped(typeof(IService<>), typeof(BaseService<>));
+            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository <>));
 
             services.AddMvc();
         }

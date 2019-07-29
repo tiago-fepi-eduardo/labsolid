@@ -13,18 +13,16 @@ namespace Solid.Infra.Data.Mappings
         {
             builder.ToTable("Book");
 
-            builder.HasKey(c => c.Id);
+            builder.HasKey(c => c.ID);
 
-            builder.Property(c => c.IdCategory)
-                .IsRequired()
-                .HasColumnName("Category");
+            builder.Property(c => c.VrBook);
+
+            builder.Property(c => c.CategoryId)
+                .IsRequired();
 
             builder.Property(c => c.NmBook)
-                .IsRequired()
-                .HasColumnName("Book");
-
-            builder.Property(c => c.VrBook)
-                .HasColumnName("Price");
+                .IsRequired();
+            
         }
     }
 }

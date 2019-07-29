@@ -4,47 +4,51 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Solid.Infra.Data;
 using System;
 
 namespace Solid.Infra.Data.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20190724144137_LibraryDB-V1")]
-    partial class LibraryDBV1
+    [Migration("20190729175424_LibraryDb")]
+    partial class LibraryDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Solid.Domain.Entity.BookEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("IdCategoryId");
+                    b.Property<int?>("IdCategoryID");
 
-                    b.Property<string>("NmBook");
+                    b.Property<string>("NmBook")
+                        .IsRequired();
 
                     b.Property<decimal>("VrBook");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.HasIndex("IdCategoryId");
+                    b.HasIndex("IdCategoryID");
 
                     b.ToTable("Book");
                 });
 
             modelBuilder.Entity("Solid.Domain.Entity.CategoryEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("NmCategory");
+                    b.Property<string>("NmCategory")
+                        .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Category");
                 });
@@ -53,7 +57,7 @@ namespace Solid.Infra.Data.Migrations
                 {
                     b.HasOne("Solid.Domain.Entity.CategoryEntity", "IdCategory")
                         .WithMany()
-                        .HasForeignKey("IdCategoryId");
+                        .HasForeignKey("IdCategoryID");
                 });
 #pragma warning restore 612, 618
         }
